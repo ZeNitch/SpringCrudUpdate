@@ -35,7 +35,7 @@ public class UserController {
     }
 
     //RequestMethod.Get //Vzimane na informaciq
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public User getSpecificUser(@PathVariable("id") Long id) {
         return userService.getSpecificUser(id);
     }
@@ -47,13 +47,13 @@ public class UserController {
     }
 
     //RequestMethod.DELETE //Iztrivane na informaciq
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
     }
 
     //RequestMethod.PUT //Obnovqvane na stara informaciq s nova //Consumes ^
-    @RequestMapping(method = RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
