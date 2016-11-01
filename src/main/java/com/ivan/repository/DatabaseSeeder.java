@@ -32,11 +32,13 @@ public class DatabaseSeeder implements CommandLineRunner {//run at start
         //Used for testing
         //userRepository.save(user);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-        String test = encoder.encode("rupsi");
+        String usrEncodePass = encoder.encode("rupsi");
+        String admEncodePass = encoder.encode("123");
+        String modEncodePass = encoder.encode("asd");
 
-        Account usr = new Account("usr", test, AccountRole.USER);
-        Account usrMod = new Account("mod", "asd", AccountRole.MODERATOR);
-        Account usrAdm = new Account("root", "123", AccountRole.ADMIN);
+        Account usr = new Account("usr", usrEncodePass, AccountRole.USER);
+        Account usrMod = new Account("mod", modEncodePass, AccountRole.MODERATOR);
+        Account usrAdm = new Account("root", admEncodePass, AccountRole.ADMIN);
         accountRepository.save(usr);
         accountRepository.save(usrMod);
         accountRepository.save(usrAdm);

@@ -29,6 +29,7 @@ public interface UserService {
     //RequestMethod.GET //Vzimane na informaciq
     Collection<User> search(String parameter);
 
+    //Collection<User> search(String parameter);
     //RequestMethod.GET //Vzimane na informaciq
     Collection<User> sortByDateOfBirth();
 
@@ -37,5 +38,5 @@ public interface UserService {
 
     //RequestMethod.PUT //Obnovqvane na stara informaciq s nova
     User updateUser(User user);
-    
+
 }

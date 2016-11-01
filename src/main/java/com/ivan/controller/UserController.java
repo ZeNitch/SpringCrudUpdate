@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -30,18 +31,23 @@ public class UserController {
     //RequestMethod.GET //vzimane na informaciq
     //Pri ednakvi requestMethod-i izpolzvane na razli4ni value. Vij Sortirovki
     @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView login() {
+        return new ModelAndView("redirect:/login");
+    }
+
+    @RequestMapping(value = "/usr", method = RequestMethod.GET)
     public Collection<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     //RequestMethod.Get //Vzimane na informaciq
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/usr/{id}", method = RequestMethod.GET)
     public User getSpecificUser(@PathVariable("id") Long id) {
         return userService.getSpecificUser(id);
     }
 
     //RequestMethod.POST //Dobavqne na nova informaciq //Consumes = MediaType.... za poemane na informaciq ot dhc console + RequestBody
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
     }
@@ -53,7 +59,7 @@ public class UserController {
     }
 
     //RequestMethod.PUT //Obnovqvane na stara informaciq s nova //Consumes ^
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
@@ -73,6 +79,7 @@ public class UserController {
     //RequestMethod.GET //Vzimane na informaciq
     @RequestMapping(value = "/search/{parameter}", method = RequestMethod.GET)
     public Collection<User> search(@PathVariable("parameter") String parameter) {
+        //return userService.search(parameter);
         return userService.search(parameter);
     }
 }

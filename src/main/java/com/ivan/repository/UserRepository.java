@@ -7,6 +7,7 @@ package com.ivan.repository;
 
 import com.ivan.model.User;
 import java.util.Collection;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "upper(u.email) like concat('%', ?1, '%')")
     Collection<User> search(String value);
 
+    List<User> findByFirstNameContainingOrLastNameContainingOrPhoneNumberContainingOrEmailContainingAllIgnoreCase(String pOne, String pTwo, String pThree, String pFour);
     /*@Query("select u from User u where u.?1 = ?2")
     Collection<User> searchByParameter(String column, String value);*/
 }

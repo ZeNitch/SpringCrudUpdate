@@ -8,7 +8,6 @@ package com.ivan.service;
 import com.ivan.model.User;
 import com.ivan.repository.UserRepository;
 import java.util.Collection;
-import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,9 +75,13 @@ public class UserServiceImpl implements UserService {
     }
 
     //RequestMethod.GET //Vzimane na informaciq
+//    @Override
+//    public Collection<User> search(String parameter) {
+//
+//        return userRepository.search(parameter.toUpperCase());
+//    }
     @Override
     public Collection<User> search(String parameter) {
-
-        return userRepository.search(parameter.toUpperCase());
+        return userRepository.findByFirstNameContainingOrLastNameContainingOrPhoneNumberContainingOrEmailContainingAllIgnoreCase(parameter, parameter, parameter, parameter);
     }
 }

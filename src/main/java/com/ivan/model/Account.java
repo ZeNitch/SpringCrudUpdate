@@ -9,8 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
@@ -31,8 +29,9 @@ public class Account {
     @Column(name = "password_hash", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "accRole", nullable = false)
     @Enumerated(EnumType.STRING)
+    //private String accRole;
     private AccountRole accRole;
 
     public Account(String username, String password, AccountRole accountRole) {

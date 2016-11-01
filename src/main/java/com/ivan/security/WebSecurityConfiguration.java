@@ -29,25 +29,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/").hasAnyRole("User")
-//                .anyRequest().authenticated()
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/delete").hasAnyRole("Admin")
-//                .anyRequest().authenticated().and()
-//                .formLogin().permitAll()
-//                .and()
-//                .logout().permitAll();
+
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/delete/**").hasAuthority(AccountRole.ADMIN.toString())
+                .antMatchers("/usr/**").hasAnyRole(AccountRole.USER.toString(), AccountRole.MODERATOR.toString(), AccountRole.ADMIN.toString())
+                .antMatchers("/create/**", "/update/**").hasAnyRole(AccountRole.MODERATOR.toString(), AccountRole.ADMIN.toString())
+                .antMatchers("/delete/**").hasRole(AccountRole.ADMIN.toString())
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
+                .defaultSuccessUrl("/usr", true)
                 .permitAll()
                 .and()
                 .rememberMe();
@@ -55,9 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        /*auth
-                .inMemoryAuthentication()
-                .withUser("peshaka").password("rupsi").roles("USER");*/
+
         for (Account acc : accountRepository.findAll()) {
             auth
                     .inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder(12))
